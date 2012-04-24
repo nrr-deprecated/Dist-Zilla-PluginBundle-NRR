@@ -32,9 +32,18 @@ has _plugins => (
 				AutoPrereqs
 				MinimumPerl
 				GithubMeta
-				MetaNoIndex
-				Bugtracker
-				MetaProvides::Package
+			),
+			['MetaNoIndex' => {
+				directory => qw[ t xt examples corpus ],
+			}],
+			['Bugtracker' => {
+				web => 'https://github.com/nrr/%s/issues',
+				mailto => 'nrr+bug-%U@corvidae.org',
+			}],
+			['MetaProvides::Package' => {
+				meta_noindex => 1,
+			}],
+			qw(
 				MetaYAML
 				MetaJSON
 				AutoVersion
@@ -100,6 +109,15 @@ has weaver_config => (
 	isa => 'Str',
 	lazy => 1,
 	default => sub { $_[0]->payload->{weaver_config} || '@NRR' },
+);
+
+has major_version => (
+	is      => 'ro',
+	isa     => 'Int',
+	lazy    => 1,
+	default => sub {
+		exists $_[0]->payload->{major_version} ? $_[0]->payload->{major_version} : 1
+	},
 );
 
 sub configure
