@@ -34,7 +34,7 @@ has _plugins => (
 				GithubMeta
 			),
 			['MetaNoIndex' => {
-				directory => qw[ t xt examples corpus ],
+				directory => [qw[ t xt examples corpus ]],
 			}],
 			['Bugtracker' => {
 				web => 'https://github.com/nrr/%s/issues',
@@ -46,20 +46,53 @@ has _plugins => (
 			qw(
 				MetaYAML
 				MetaJSON
-				AutoVersion
-				GatherDir
-				PruneCruft
+			),
+			['AutoVersion' => {
+				major => $self->major_version,
+			}],
+			['GatherDir' => {
+				exclude_filename => [qw[
+					README.pod
+					META.json
+					perlcritic.rc
+					perltidy.rc
+				]],
+			}],
+			['PruneCruft' => {
+				except => [qw[
+					.gitignore
+					perlcritic.rc
+					perltidy.rc
+				]],
+			}],
+			qw(
 				ManifestSkip
 				OurPkgVersion
 				InsertCopyright
 				PodWeaver
-				PerlTidy
+			),
+			['PerlTidy' => {
+				perltidyrc => 'perltidy.rc',
+			}],
+			qw(
 				License
 				ReadmeFromPod
-				ReadmeAnyFromPod
-				Test::Compile
+			),
+			['ReadmeAnyFromPod' => {
+				type => 'pod',
+				filename => 'README.pod',
+				location => 'root',
+			}],
+			['Test::Compile' => {
+				fake_home => 1,
+			}],
+			qw(
 				Test::PodSpelling
-				Test::Perl::Critic
+			),
+			['Test::Perl::Critic' => {
+				critic_config => 'perlcritic.rc',
+			}],
+			qw(
 				MetaTests
 				PodSyntaxTests
 				PodCoverageTests
@@ -69,8 +102,20 @@ has _plugins => (
 				ShareDir
 				MakeMaker
 				Manifest
-				CopyFilesFromBuild
-				Git::Check
+			),
+			['CopyFilesFromBuild' => {
+				copy => [qw[ META.json ]],
+				move => [qw[ .gitignore ]],
+			}],
+			['Git::Check' => {
+				allow_dirty => [qw[
+					dist.ini
+					Changes
+					README.pod
+					META.json
+				]],
+			}],
+			qw(
 				CheckPrereqsIndexed
 				CheckChangesHasContent
 				CheckExtraTests
@@ -80,10 +125,21 @@ has _plugins => (
 			($self->is_test_dist ? 'FakeRelease' : 'UploadToCPAN'),
 			qw(
 				NextRelease
-				Git::Commit
-				Git::Tag
-				Git::Push
 			),
+			['Git::Commit' => {
+				allow_dirty => [qw[
+					dist.ini
+					Changes
+					README.pod
+					META.json
+				]],
+			}],
+			['Git::Tag' => {
+				tag_format => 'release-%v',
+			}],
+			['Git::Push' => {
+				push_to => 'origin',
+			}],
 		]
 	},
 );
