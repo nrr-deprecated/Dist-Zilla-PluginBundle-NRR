@@ -33,21 +33,21 @@ has _plugins => (
                 MinimumPerl
                 GithubMeta
                 ),
-            (   'MetaNoIndex' =>
+            [   'MetaNoIndex' =>
                     { directory => [qw[ t xt examples corpus ]], }
-            ),
-            (   'Bugtracker' => {
+            ],
+            [   'Bugtracker' => {
                     web    => 'https://github.com/nrr/%s/issues',
                     mailto => 'nrr+bug-%U@corvidae.org',
                 }
-            ),
-            ( 'MetaProvides::Package' => { meta_noindex => 1, } ),
+            ],
+            [ 'MetaProvides::Package' => { meta_noindex => 1, } ],
             qw(
                 MetaYAML
                 MetaJSON
                 ),
-            ( 'AutoVersion' => { major => $self->major_version, } ),
-            (   'GatherDir' => {
+            [ 'AutoVersion' => { major => $self->major_version, } ],
+            [   'GatherDir' => {
                     exclude_filename => [
                         qw[
                             README.pod
@@ -57,8 +57,8 @@ has _plugins => (
                             ]
                     ],
                 }
-            ),
-            (   'PruneCruft' => {
+            ],
+            [   'PruneCruft' => {
                     except => [
                         qw[
                             .gitignore
@@ -67,31 +67,31 @@ has _plugins => (
                             ]
                     ],
                 }
-            ),
+            ],
             qw(
                 ManifestSkip
                 OurPkgVersion
                 InsertCopyright
                 PodWeaver
                 ),
-            ( 'PerlTidy' => { perltidyrc => 'perltidy.rc', } ),
+            [ 'PerlTidy' => { perltidyrc => 'perltidy.rc', } ],
             qw(
                 License
                 ReadmeFromPod
                 ),
-            (   'ReadmeAnyFromPod' => {
+            [   'ReadmeAnyFromPod' => {
                     type     => 'pod',
                     filename => 'README.pod',
                     location => 'root',
                 }
-            ),
-            ( 'Test::Compile' => { fake_home => 1, } ),
+            ],
+            [ 'Test::Compile' => { fake_home => 1, } ],
             qw(
                 Test::PodSpelling
                 ),
-            (   'Test::Perl::Critic' =>
+            [   'Test::Perl::Critic' =>
                     { critic_config => 'perlcritic.rc', }
-            ),
+            ],
             qw(
                 MetaTests
                 PodSyntaxTests
@@ -103,12 +103,12 @@ has _plugins => (
                 MakeMaker
                 Manifest
                 ),
-            (   'CopyFilesFromBuild' => {
+            [   'CopyFilesFromBuild' => {
                     copy => [qw[ META.json ]],
                     move => [qw[ .gitignore ]],
                 }
-            ),
-            (   'Git::Check' => {
+            ],
+            [   'Git::Check' => {
                     allow_dirty => [
                         qw[
                             dist.ini
@@ -118,7 +118,7 @@ has _plugins => (
                             ]
                     ],
                 }
-            ),
+            ],
             qw(
                 CheckPrereqsIndexed
                 CheckChangesHasContent
@@ -130,7 +130,7 @@ has _plugins => (
             qw(
                 NextRelease
                 ),
-            (   'Git::Commit' => {
+            [   'Git::Commit' => {
                     allow_dirty => [
                         qw[
                             dist.ini
@@ -140,9 +140,9 @@ has _plugins => (
                             ]
                     ],
                 }
-            ),
-            ( 'Git::Tag'  => { tag_format => 'release-%v', } ),
-            ( 'Git::Push' => { push_to    => 'origin', } ),
+            ],
+            [ 'Git::Tag'  => { tag_format => 'release-%v', } ],
+            [ 'Git::Push' => { push_to    => 'origin', } ],
         ];
     },
 );
