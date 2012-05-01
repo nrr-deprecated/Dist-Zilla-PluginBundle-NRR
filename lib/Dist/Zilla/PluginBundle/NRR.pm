@@ -188,8 +188,7 @@ sub configure
     my ( $self ) = @_;
 
     $self->add_plugins(
-        map { [ $_ => ( $self->plugin_options->{$_} || {} ) ] }
-            @{ $self->_plugins },
+        map { $_ } @{ $self->_plugins },
     );
 }
 
