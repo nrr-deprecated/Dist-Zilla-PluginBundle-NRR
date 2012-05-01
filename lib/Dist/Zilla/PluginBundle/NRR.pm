@@ -52,8 +52,6 @@ has _plugins => (
                         qw[
                             README.pod
                             META.json
-                            perlcritic.rc
-                            perltidy.rc
                             ]
                     ],
                 }
