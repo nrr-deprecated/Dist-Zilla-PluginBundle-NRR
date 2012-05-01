@@ -126,7 +126,7 @@ has _plugins => (
                 TestRelease
                 ConfirmRelease
                 ),
-            ( $self->is_test_dist ? 'FakeRelease' : 'UploadToCPAN' ),
+            ( $self->is_fake_release ? 'FakeRelease' : 'UploadToCPAN' ),
             qw(
                 NextRelease
                 ),
@@ -158,11 +158,11 @@ has stopwords => (
     },
 );
 
-has fake_release => (
+has is_fake_release => (
     is      => 'ro',
     isa     => 'Bool',
     lazy    => 1,
-    default => sub { $_[0]->payload->{fake_release} },
+    default => sub { $_[0]->payload->{is_fake_release} || 1 },
 );
 
 has weaver_config => (
