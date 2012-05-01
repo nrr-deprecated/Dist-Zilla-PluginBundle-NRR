@@ -24,7 +24,7 @@ Rawr!
 
 has _plugins => (
     is      => 'ro',
-    isa     => 'ArrayRef[Str]',
+    isa     => 'ArrayRef',
     lazy    => 1,
     default => sub {
         my $self = shift;
