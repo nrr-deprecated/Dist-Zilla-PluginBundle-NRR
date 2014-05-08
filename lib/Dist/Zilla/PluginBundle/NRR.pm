@@ -1,4 +1,4 @@
-use strictures;
+use strictures 1;
 
 package Dist::Zilla::PluginBundle::NRR;
 
